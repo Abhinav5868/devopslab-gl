@@ -1,7 +1,7 @@
 # Stage 1: Build the application using Maven
 FROM maven:3.8.1-jdk-11 AS build
 
-WORKDIR /app
+WORKDIR /src
 
 # Copy only pom.xml first to leverage Docker cache
 COPY pom.xml .
