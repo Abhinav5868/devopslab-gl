@@ -3,7 +3,13 @@ FROM maven:3.8.1-jdk-11 AS build
 
 WORKDIR /app
 
-# Copy the source code into the container
+# Copy only pom.xml first to leverage Docker cache
+COPY pom.xml .
+
+# Download dependencies (this will be cached unless pom.xml changes)
+RUN mvn dependency:go-offline -B
+
+# Now copy the rest of the project files
 COPY . .
 
 # Build the application using Maven
